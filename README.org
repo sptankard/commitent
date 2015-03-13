@@ -1,5 +1,7 @@
 * Commitent
 
+*Brainstorming stage.*
+
 Autogenerate meaningful commit messages (useful for automatic commit
 software like https://github.com/chrisparnin/autogit).
 
