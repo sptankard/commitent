@@ -1,6 +1,10 @@
-* Commitent (language monitor -> autogenerate meaningful commit messages)
+* Commitent
 
-Smart automatic VCS commit messages based on AST diffs.
+Autogenerate meaningful commit messages (useful for automatic commit
+software like https://github.com/chrisparnin/autogit).
+
+Smart automatic VCS commit messages based on AST/lexing diffs.
+Language-specific monitor -> summarize the changes.
 
 "commitent": comm-it comm-ent
 
