@@ -1,0 +1,41 @@
+autogit-latex
+
+Make your life easier. Smoother workflow.
+
+Want to delete that paragraph but not sure if you might want it again
+later? Just delete it. It will be saved in your version history. (No
+more copying it over into a separate "scratch" or "bits and ends"
+file.)
+
+Parts in play:
+- VCS (git)
+- editor
+- autogit
+- autogit-dialect-monitor (autocommit-lang-monitor) -> "commitent"
+
+** Autogit
+Rather than committing on every editor save, *potentially* commit on
+every editor save. Avoid polluting commit history. Judge whether edits
+are worth committing based on language-specific features, and
+timing.
+
+Second feature part: Commit with helpful, informative messages derived
+from the structure of the document (via the language-specific
+definitions).
+
+- evaluate when to commit based on timing and scope of edits
+- integrate with editor for timing info
+  - evaluate commit-ability on every editor-save
+  - also, time-spacing should be taken into account. (For example,
+    some edits might not be considered commit-worthy during an editing
+    streak; but if there is a pause of 30 mins (10?), they should be
+    committed upon resuming editing, separately from the post-pause
+    edits.)
+- integrate with lang defs for scope info
+- different commits for each file
+** Pre-existing projects of interest
+https://github.com/chrisparnin/autogit
+- plugins for Sublime Text and Visual Studio
+- commits on every editor-save
+- breaks commits into "pre save" and "post save" types
+- no informative commit messages

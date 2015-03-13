@@ -1,0 +1,79 @@
+* Commitent (language monitor -> autogenerate meaningful commit messages)
+
+Smart automatic VCS commit messages based on AST diffs.
+
+"commitent": comm-it comm-ent
+
+Alt. name: commitage, messagit, commess, commessage, commitsage,
+commitge, cmtage
+
+** Example commit messages (LaTeX)
+
+The end goal is to have commit messages of the sort:
+
+- [auto] paper.tex: Add 3 paragraphs to §3 (The need for inc…)
+
+- [auto] paper.tex: Move subsection "Other interesting fa…" from §3 to §5
+
+- [auto] paper.tex: Move 2 paragraphs from §5 to §3
+
+- [auto] paper.tex: Add 1 tikzpicture to §3 (The need for increas…)
+
+- [auto] paper.tex: Edits to §3 (The need for increas…)
+
+** How to achieve this?
+
+Base the commit messages on parsing the source (new and last commit)
+and diffing the generated trees.
+
+This could be done with ASTs, but syntax-highlighting lexers are
+probably better suited to the task.  (Problem for AST: ASTs ignore
+comments, non-significant whitespace.  Possible solution: add a
+pre-processing (or parallel-?) step to capture these.)
+
+Analyze two source files and generate a commit message summarizing the
+meaningful differences between them.
+
+Commitent's job will thus be to provide:
+- Set of rules and definitions defining how to treat a particular
+  language: what parser to call for the AST, and what/how to handle
+  things not picked up by the AST.
+- Define structural elements and certain thresholds for how to treat
+  them.  Based on these thresholds, decide where to call the shots on
+  what to report as significant.
+
+Do so by using a plugin-like architecture for dealing with:
+- Different languages (Python, Latex...)
+- Different VCS systems (git, mercurial)
+- Maybe: integrating into different editors (emacs, vim, TeXMaker).
+  Q: is this better handled at a different level (e.g., through
+  autogit)?
+
+Outsource the parsing work as much as possible (Pygments?):
+- LaTeX: pygments.lexers.markup.TexLexer
+- Python: pygments.lexers.python.PythonLexer,
+  pygments.lexers.python.Python3Lexer
+
+Other notes:
+- VCS-abstract implementation, if possible. Just provide info for
+  commit message.
+** LaTeX
+
+Pygments is probably the way to go
+(pygments.lexers.markup.TexLexer). Cf. http://pygments.org/docs/lexers/
+
+Also, PlasTeX provides an extensible parser that produces an AST-like
+structure.  However, PlasTeX has important limitations: TeX is hard to
+parse. PlasTeX does not implement everything. Would need to extend its
+LaTeX package-awareness somewhat, and provide a fallback
+parse-to-string for edge cases.
+
+LaTeX structure:
+- header (vs body)
+- sections, sub, subsub
+- paragraphs
+- figures
+  - examples
+  - tables
+  - tikz…
+- etc. ...
